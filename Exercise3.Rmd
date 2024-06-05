@@ -3,7 +3,7 @@ title: "Exercise 3"
 subtitle: "Fortgeschrittene Statistische Software für NF"
 author: "Jonathan Johnsen(12568800)"
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output: html_document
 ---
 
 
@@ -72,17 +72,23 @@ in git.
 ```
 
 Strengths :
-1.You always have backups from older versions in case something went very wrong with one of your updates
-2.It makes it much easier to work in groups with other people as everyone can just work on their own features and than commit them
 
-Weaknesses
-1.It has a steep learning curve for beginners
-2.If you have a really big project it might take up a a ton of storage to safe all the changes and older versions
+1. You always have backups from older versions in case something went very wrong with one of your updates
+2. It makes it much easier to work in groups with other people as everyone can just work on their own features and than commit them
 
 
-e)  Knit this exercise sheet. Some new files will automatically be
-    generated when knitting the sheet e.g. the HTML page. Ignore these
-    files, as we only want to track the source files themselves.
+
+Weaknesses:
+
+1. It has a steep learning curve for beginners
+2. If you have a really big project it might take up a a ton of storage to safe all the changes and older versions
+
+```{r}
+#e)  Knit this exercise sheet. Some new files will automatically be
+#    generated when knitting the sheet e.g. the HTML page. Ignore these
+#    files, as we only want to track the source files themselves.
+```
+
 
 ## Exercise 2: Putting your Repository on GitHub (3.5 Points)
 
