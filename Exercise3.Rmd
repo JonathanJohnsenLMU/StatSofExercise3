@@ -161,11 +161,20 @@ total_babys_2023 <- name_data_2023 %>% summarise(sum = sum(Anzahl,na.rm=TRUE))
 
  **`r total_babys_2022`** Babys were born in 2022 and **`r total_babys_2023`** in 2023, so 2022 had more
 
-d)  Add a new column `year` to both datasets which holds the correct
-    year for each.
+### d)
+```{r}
+#d)  Add a new column `year` to both datasets which holds the correct
+#    year for each.
 
-e)  Combine both datasets into one using `bind_rows()`.
+name_data_2023 <- name_data_2022 %>% mutate(year=2022)
+name_data_2023 <- name_data_2023 %>% mutate(year=2023)
+```
 
+### e)
+```{r}
+#e)  Combine both datasets into one using `bind_rows()`.
+
+```
 f)  Combine the counts for same names to determine the most popular
     names across both years. Print out the top 10 names in a nicely
     formatted table for both years. Include a table caption.
