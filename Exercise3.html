@@ -452,9 +452,11 @@ to safe all the changes and older versions</li>
 the open data repository of the city of Munich for the years
 <code>2023</code> and <code>2022</code>.</p>
 <p>Link: <a href="https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen" class="uri">https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen</a></p>
-<p>###a)</p>
+<div id="a-2" class="section level3">
+<h3>a)</h3>
 <pre class="r"><code>#a)  Download the data for both years and track it in git. For small
 #    datasets like these adding them to git is not a problem.</code></pre>
+</div>
 <div id="b-2" class="section level3">
 <h3>b)</h3>
 <pre class="r"><code>#b)  Load the data for both years into R. Check the type of the count
@@ -511,9 +513,68 @@ name_data_2023 &lt;- name_data_2023 %&gt;% mutate(year=2023)</code></pre>
 <h3>e)</h3>
 <pre class="r"><code>#e)  Combine both datasets into one using `bind_rows()`.
 name_data &lt;- bind_rows(name_data_2022,name_data_2023)</code></pre>
+</div>
+<div id="f" class="section level3">
+<h3>f)</h3>
 <pre class="r"><code>#f)  Combine the counts for same names to determine the most popular
 #    names across both years. Print out the top 10 names in a nicely
-#    formatted table for both years. Include a table caption.</code></pre>
+#    formatted table for both years. Include a table caption.
+
+most_picked_names &lt;- name_data %&gt;% group_by(Vorname) %&gt;% summarize(total_times_picked = sum(Anzahl,na.rm=TRUE))
+most_picked_names &lt;- most_picked_names %&gt;% arrange(desc(total_times_picked))
+
+top_10_names &lt;- most_picked_names %&gt;% slice(1:10)
+knitr::kable(top_10_names)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Vorname</th>
+<th align="right">total_times_picked</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Maximilian</td>
+<td align="right">209</td>
+</tr>
+<tr class="even">
+<td align="left">Emilia</td>
+<td align="right">192</td>
+</tr>
+<tr class="odd">
+<td align="left">Leon</td>
+<td align="right">188</td>
+</tr>
+<tr class="even">
+<td align="left">Anton</td>
+<td align="right">181</td>
+</tr>
+<tr class="odd">
+<td align="left">Emma</td>
+<td align="right">172</td>
+</tr>
+<tr class="even">
+<td align="left">Felix</td>
+<td align="right">166</td>
+</tr>
+<tr class="odd">
+<td align="left">Mia</td>
+<td align="right">163</td>
+</tr>
+<tr class="even">
+<td align="left">Paul</td>
+<td align="right">161</td>
+</tr>
+<tr class="odd">
+<td align="left">Noah</td>
+<td align="right">159</td>
+</tr>
+<tr class="even">
+<td align="left">Jonas</td>
+<td align="right">158</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="exercise-4-open-analysis-4-points" class="section level2">

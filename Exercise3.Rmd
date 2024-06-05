@@ -122,7 +122,7 @@ open data repository of the city of Munich for the years `2023` and
 
 Link: <https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen>
 
-###a)
+### a)
 ```{r}
 #a)  Download the data for both years and track it in git. For small
 #    datasets like these adding them to git is not a problem.
@@ -176,10 +176,17 @@ name_data_2023 <- name_data_2023 %>% mutate(year=2023)
 name_data <- bind_rows(name_data_2022,name_data_2023)
 ```
 
+### f)
 ```{r}
 #f)  Combine the counts for same names to determine the most popular
 #    names across both years. Print out the top 10 names in a nicely
 #    formatted table for both years. Include a table caption.
+
+most_picked_names <- name_data %>% group_by(Vorname) %>% summarize(total_times_picked = sum(Anzahl,na.rm=TRUE))
+most_picked_names <- most_picked_names %>% arrange(desc(total_times_picked))
+
+top_10_names <- most_picked_names %>% slice(1:10)
+knitr::kable(top_10_names)
 ```
 ## Exercise 4: Open Analysis (4 points)
 
