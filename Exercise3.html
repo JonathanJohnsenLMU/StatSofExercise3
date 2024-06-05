@@ -504,17 +504,16 @@ total_babys_2023 &lt;- name_data_2023 %&gt;% summarise(sum = sum(Anzahl,na.rm=TR
 <pre class="r"><code>#d)  Add a new column `year` to both datasets which holds the correct
 #    year for each.
 
-name_data_2023 &lt;- name_data_2022 %&gt;% mutate(year=2022)
+name_data_2022 &lt;- name_data_2022 %&gt;% mutate(year=2022)
 name_data_2023 &lt;- name_data_2023 %&gt;% mutate(year=2023)</code></pre>
 </div>
 <div id="e" class="section level3">
 <h3>e)</h3>
-<pre class="r"><code>#e)  Combine both datasets into one using `bind_rows()`.</code></pre>
-<ol start="6" style="list-style-type: lower-alpha">
-<li>Combine the counts for same names to determine the most popular
-names across both years. Print out the top 10 names in a nicely
-formatted table for both years. Include a table caption.</li>
-</ol>
+<pre class="r"><code>#e)  Combine both datasets into one using `bind_rows()`.
+name_data &lt;- bind_rows(name_data_2022,name_data_2023)</code></pre>
+<pre class="r"><code>#f)  Combine the counts for same names to determine the most popular
+#    names across both years. Print out the top 10 names in a nicely
+#    formatted table for both years. Include a table caption.</code></pre>
 </div>
 </div>
 <div id="exercise-4-open-analysis-4-points" class="section level2">
