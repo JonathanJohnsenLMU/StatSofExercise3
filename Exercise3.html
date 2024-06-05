@@ -427,17 +427,24 @@ to safe all the changes and older versions</li>
 <div id="exercise-2-putting-your-repository-on-github-3.5-points" class="section level2">
 <h2>Exercise 2: Putting your Repository on GitHub (3.5 Points)</h2>
 <p>For this task you will upload your solution to GitHub.</p>
-<ol style="list-style-type: lower-alpha">
-<li>Create a new repository on GitHub in your account named
-<code>exeRcise-sheet-3</code>. Make sure you create a <strong>public
-repository</strong> so we are able to see it for grading. Add the link
-to the repository below:</li>
-<li>Push your code to this new repository by copying and executing the
-snippet on github listed under
-<code>…or push an existing repository from the command line</code>.</li>
-<li>Regularly push your latest changes to GitHub again and especially do
-so when you are finished with this sheet.</li>
-</ol>
+<div id="a-1" class="section level3">
+<h3>a)</h3>
+<pre class="r"><code>#a)  Create a new repository on GitHub in your account named
+#    `exeRcise-sheet-3`. Make sure you create a **public repository** so
+#    we are able to see it for grading. Add the link to the repository
+#    below:</code></pre>
+</div>
+<div id="b-1" class="section level3">
+<h3>b)</h3>
+<pre class="r"><code>#b)  Push your code to this new repository by copying and executing the
+#    snippet on github listed under
+#    `…or push an existing repository from the command line`.</code></pre>
+</div>
+<div id="c" class="section level3">
+<h3>c)</h3>
+<pre class="r"><code>#c)  Regularly push your latest changes to GitHub again and especially do
+#    so when you are finished with this sheet.</code></pre>
+</div>
 </div>
 <div id="exercise-3-baby-names-in-munich-3.5-points" class="section level2">
 <h2>Exercise 3: Baby-Names in Munich (3.5 Points)</h2>
@@ -445,16 +452,53 @@ so when you are finished with this sheet.</li>
 the open data repository of the city of Munich for the years
 <code>2023</code> and <code>2022</code>.</p>
 <p>Link: <a href="https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen" class="uri">https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen</a></p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Download the data for both years and track it in git. For small
-datasets like these adding them to git is not a problem.</p></li>
-<li><p>Load the data for both years into R. Check the type of the count
-variable (“Anzahl”) and look into the data to determine why it is not
-numeric? Fix the problem in an appropriate manner, it is OK if some of
-the counts are inaccurate because of this. Explain your solution and the
-repercussions.</p></li>
-<li><p>Calculate the total number of babies born in Munich in 2022 and
-2023. Which year had the bigger baby-boom?</p></li>
+<p>###a)</p>
+<pre class="r"><code>#a)  Download the data for both years and track it in git. For small
+#    datasets like these adding them to git is not a problem.</code></pre>
+<div id="b-2" class="section level3">
+<h3>b)</h3>
+<pre class="r"><code>#b)  Load the data for both years into R. Check the type of the count
+#    variable (&quot;Anzahl&quot;) and look into the data to determine why it is
+#    not numeric? Fix the problem in an appropriate manner, it is OK if
+#    some of the counts are inaccurate because of this. Explain your
+#    solution and the repercussions.
+
+name_data_2023 &lt;- read_csv(&quot;data//vornamen-muenchen-2023.csv&quot;)</code></pre>
+<pre><code>## Rows: 4289 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): Vorname, Anzahl, Geschlecht
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>name_data_2022 &lt;- read_csv(&quot;data//open_data_portal_2022.csv&quot;)</code></pre>
+<pre><code>## Rows: 4390 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): Vorname, Anzahl, Geschlecht
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>#class(name_data$Anzahl) used to check the inital type
+#It would appear that &quot;Anzahl&quot;s data type is &quot;character&quot;
+
+#This is because some of the rows are not just made up of numbers for instance the name &quot;Aadhvika&quot; contains the information &quot;4 oder weniger&quot;(4 or less) in 2023
+
+#I will fix this by just having it ignore all the text and using the given maximum number I am assuming that&#39;s probably what you meant by &quot;it is OK if some of the counts are inaccurate&quot;
+name_data_2023 &lt;- name_data_2023 %&gt;% mutate(Anzahl = parse_number(Anzahl))
+name_data_2022 &lt;- name_data_2022 %&gt;% mutate(Anzahl = parse_number(Anzahl))
+
+#class(name_data$Anzahl) used to check that it did in fact change to numerical</code></pre>
+</div>
+<div id="c-1" class="section level3">
+<h3>c)</h3>
+<pre class="r"><code>#c)  Calculate the total number of babies born in Munich in 2022
+#    and 2023. Which year had the bigger baby-boom?
+total_babys_2022 &lt;- name_data_2022 %&gt;% summarise(sum = sum(Anzahl,na.rm=TRUE))
+total_babys_2023 &lt;- name_data_2023 %&gt;% summarise(sum = sum(Anzahl,na.rm=TRUE))</code></pre>
+<p><strong>25199</strong> Babys were born in 2022 and
+<strong>24229</strong> in 2023, so 2022 had more</p>
+<ol start="4" style="list-style-type: lower-alpha">
 <li><p>Add a new column <code>year</code> to both datasets which holds
 the correct year for each.</p></li>
 <li><p>Combine both datasets into one using
@@ -463,6 +507,7 @@ the correct year for each.</p></li>
 names across both years. Print out the top 10 names in a nicely
 formatted table for both years. Include a table caption.</p></li>
 </ol>
+</div>
 </div>
 <div id="exercise-4-open-analysis-4-points" class="section level2">
 <h2>Exercise 4: Open Analysis (4 points)</h2>

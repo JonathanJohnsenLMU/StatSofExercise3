@@ -94,16 +94,26 @@ Weaknesses:
 
 For this task you will upload your solution to GitHub.
 
-a)  Create a new repository on GitHub in your account named
-    `exeRcise-sheet-3`. Make sure you create a **public repository** so
-    we are able to see it for grading. Add the link to the repository
-    below:
-b)  Push your code to this new repository by copying and executing the
-    snippet on github listed under
-    `…or push an existing repository from the command line`.
-c)  Regularly push your latest changes to GitHub again and especially do
-    so when you are finished with this sheet.
+### a)
+```{r}
+#a)  Create a new repository on GitHub in your account named
+#    `exeRcise-sheet-3`. Make sure you create a **public repository** so
+#    we are able to see it for grading. Add the link to the repository
+#    below:
+```
 
+### b)
+```{r}
+#b)  Push your code to this new repository by copying and executing the
+#    snippet on github listed under
+#    `…or push an existing repository from the command line`.
+```
+
+### c)
+```{r}
+#c)  Regularly push your latest changes to GitHub again and especially do
+#    so when you are finished with this sheet.
+```
 ## Exercise 3: Baby-Names in Munich (3.5 Points)
 
 Download the latest open datasets on given names ("Vornamen") from the
@@ -112,17 +122,44 @@ open data repository of the city of Munich for the years `2023` and
 
 Link: <https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen>
 
-a)  Download the data for both years and track it in git. For small
-    datasets like these adding them to git is not a problem.
+###a)
+```{r}
+#a)  Download the data for both years and track it in git. For small
+#    datasets like these adding them to git is not a problem.
+```
 
-b)  Load the data for both years into R. Check the type of the count
-    variable ("Anzahl") and look into the data to determine why it is
-    not numeric? Fix the problem in an appropriate manner, it is OK if
-    some of the counts are inaccurate because of this. Explain your
-    solution and the repercussions.
+### b)
+```{r}
+#b)  Load the data for both years into R. Check the type of the count
+#    variable ("Anzahl") and look into the data to determine why it is
+#    not numeric? Fix the problem in an appropriate manner, it is OK if
+#    some of the counts are inaccurate because of this. Explain your
+#    solution and the repercussions.
 
-c)  Calculate the total number of babies born in Munich in 2022
-    and 2023. Which year had the bigger baby-boom?
+name_data_2023 <- read_csv("data//vornamen-muenchen-2023.csv")
+name_data_2022 <- read_csv("data//open_data_portal_2022.csv")
+
+#class(name_data$Anzahl) used to check the inital type
+#It would appear that "Anzahl"s data type is "character"
+
+#This is because some of the rows are not just made up of numbers for instance the name "Aadhvika" contains the information "4 oder weniger"(4 or less) in 2023
+
+#I will fix this by just having it ignore all the text and using the given maximum number I am assuming that's probably what you meant by "it is OK if some of the counts are inaccurate"
+name_data_2023 <- name_data_2023 %>% mutate(Anzahl = parse_number(Anzahl))
+name_data_2022 <- name_data_2022 %>% mutate(Anzahl = parse_number(Anzahl))
+
+#class(name_data$Anzahl) used to check that it did in fact change to numerical
+```
+
+### c)
+```{r}
+#c)  Calculate the total number of babies born in Munich in 2022
+#    and 2023. Which year had the bigger baby-boom?
+total_babys_2022 <- name_data_2022 %>% summarise(sum = sum(Anzahl,na.rm=TRUE))
+total_babys_2023 <- name_data_2023 %>% summarise(sum = sum(Anzahl,na.rm=TRUE))
+```
+
+ **`r total_babys_2022`** Babys were born in 2022 and **`r total_babys_2023`** in 2023, so 2022 had more
 
 d)  Add a new column `year` to both datasets which holds the correct
     year for each.
