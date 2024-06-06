@@ -103,7 +103,7 @@ For this task you will upload your solution to GitHub.
 #    below:
 ```
 
-You can find my GitHub repo here : https://github.com/JonathanJohnsenLMU/StatSofExercise3
+You can find my GitHub repo here : https://github.com/JonathanJohnsenLMU/exeRcise-sheet-3
 
 
 ### b)
@@ -112,7 +112,7 @@ You can find my GitHub repo here : https://github.com/JonathanJohnsenLMU/StatSof
 #    snippet on github listed under
 #    `…or push an existing repository from the command line`.
 
-#The first few commits are from my private GutHub account because I forgot to witch to the one I created for this
+#The first few commits are from my private GitHub account because I forgot to witch to the one I created for this
 ```
 
 ### c)
